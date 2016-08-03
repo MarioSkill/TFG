@@ -1,0 +1,264 @@
+{% extends 'BenchmarkBundle:Layout:base.html.twig' %}
+{% block header %} 
+{% include 'BenchmarkBundle:Header:header.html.twig' %}
+{% endblock %}
+{% block bodyContent %} 
+<br />
+<div class="">
+<div class="col-md-12 col-sm-12 col-xs-12">
+    <div class="x_panel tile overflow_hidden">
+        <div class="x_title">
+            <h2>Servidor Monitorización</h2>
+            <div class="clearfix"></div>
+        </div>
+        <div class="x_content">
+            <table class="" style="width:100%">
+                <tbody><tr>
+                    <th>
+                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                            <p class="">IP</p>
+                        </div>
+                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                            <p class="">Puerto</p>
+                        </div>
+                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                            <p class="">Estado</p>
+                        </div>
+		                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                            <p class="">Tarea</p>
+                        </div>
+                    </th>
+                </tr>
+                <tr>
+                    <td>
+                        <table class="tile_info">
+                            <tbody>
+                            <tr>
+                                <td style="width:0;">
+                                    {{ip}} </p>
+                                </td>
+                                <td class="col-lg-3 col-md-3 col-sm-3 col-xs-3">{{puerto}}</td>
+                                <td class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                                <p>
+                                	{% if estado == 'ENCENDIDO' %}
+                                	<i class="fa fa-square green"></i>
+                                	{% else %}
+                                	<i class="fa fa-square red"></i>
+                                	{% endif %}
+                                	{{estado}}</p>
+                                </td>
+                                <td class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                                	<button type="button" class="btn btn-primary" id="SERVIDOR_{{estado}}"><i class="fa fa-bolt"></i> 
+                                	{% if estado == 'ENCENDIDO' %}Apagar{% else %}Arrancar{% endif %}
+                                	</button>
+                                </td>
+                            </tr>
+                        </tbody></table>
+                    </td>
+                </tr>
+            </tbody></table>
+        </div>
+    </div>
+</div>
+	<div class="row">
+		<div class="col-md-12 col-sm-12 col-xs-12">
+			<div class="x_panel tile overflow_hidden">
+				<div class="x_title">
+					<h2>Leyenda</h2>
+					<ul class="nav navbar-right panel_toolbox">
+						<li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
+					</ul>
+					<div class="clearfix"></div>
+				</div>
+				<div class="x_content">
+					<table class="" style="width:100%">
+						<tbody>
+							<tr>
+								<th>
+									<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+										<p class="">Tipo</p>
+									</div>
+									<div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
+										<p class="">Uso</p>
+									</div>
+								</th>
+							</tr>
+							<tr>
+								<td>
+									<table class="tile_info">
+										<tbody>
+											{% for e in estados %}
+											<tr>
+												<td style="width:0;">
+													<p><i class=
+														{% if e.id == 1 %}
+														"fa fa-square blue"
+														{% elseif e.id == 2 %}
+														"fa fa-square green"
+														{% elseif e.id == 4 %}
+														"fa fa-square yellow" style="color:#f0ad4e;" 
+														{% elseif e.id == 3 %}
+														"fa fa-square aero"
+														{% elseif e.id == 5 %}
+														"fa fa-square purple"
+														{% elseif e.id == 6 %}
+														"fa fa-square red"
+														{% endif %}
+														></i>{{e.nombre}} 
+													</p>
+												</td>
+												<td>{{e.descripcion}}</td>
+											</tr>
+											{% endfor %}
+										</tbody>
+									</table>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<div class="row top_tiles">
+		{% for prueba in numTest %}
+		<div class="animated flipInY col-lg-4 col-md-4 col-sm-6 col-xs-12">
+			<div class="tile-stats">
+				<div class="icon">
+					<i class="fa fa-spinner"></i>
+				</div>
+				<div class="count">{{prueba.numero}}</div>
+				<h3>{{prueba.nombre}}</h3>
+				<p>N&uacute;mero de pruebas</p>
+			</div>
+		</div>
+		{% endfor %}
+	</div>
+	
+	<div class="row" style="max-height:500px;overflow:auto;margin-bottom: 10px;">
+		{% for programa in programas %}
+		<div class="col-md-4">
+			{% for p in programa %}
+		<div class="col-md-12">
+			<div class="x_panel" style="padding: 10px 2px;">
+				<div class="x_title">
+					<h2>{{p.programa.nombre}} <small>Ultimos test</small></h2>
+					<div class="clearfix"></div>
+				</div>
+				<div class="x_content">
+		
+					<article class="media event">
+						<a class="pull-left date">
+							<p class="month"><b>Inicio</b></p>
+							<p class="month">{{p.inicio|date('F')}}</p>
+							<p class="day">{{p.inicio|date('d')}}</p>
+						</a>
+						<div class="pull-left" style="padding-right:0px;">
+							<a href="{{ path('benchmark_show_result', { slug: p.id }) }}" class="title" href="#">
+							{{p.containerName | slice(0,16)}}</a>
+							<p>{{p.inicio|date('H:i:s')  }} / {{p.fin|date('H:i:s')  }}</p>
+							<p class=
+							{% if p.estado.id == 1 %}
+							"label label-primary"
+							{% elseif p.estado.id == 2 %}
+							"label label-success"
+							{% elseif p.estado.id == 4 %}
+							"label label-warning"
+							{% elseif p.estado.id == 3 %}
+							"label label-default"
+							{% elseif p.estado.id == 5 %}
+							"label label-slated"
+							{% elseif p.estado.id == 6 %}
+							"label label-danger"
+							{% endif %}
+							>{{p.estado.nombre }}
+							</p>
+						</div>
+						<a class="pull-right date" style="margin-right: 1px;">
+							<p class="month"><b>Fin</b></p>
+							{% if p.fin == null %}
+							<p class="month">?</p>
+							<p class="day"> - </p>
+							{% else %}
+							<p class="month">{{p.fin|date('F')}}</p>
+							<p class="day">{{p.fin|date('d')}}</p>
+							{% endif %}
+						</a>
+					</article>
+				</div>
+			</div>
+		</div>
+			{% endfor %}
+			</div>
+		{% endfor %}
+	</div>
+
+
+	<div class="row">
+		<div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="x_panel">
+                <div class="x_title">
+                    <h2>Comparativas <small>3 Frameworks</small></h2>
+                    <ul class="nav navbar-right panel_toolbox">
+                        <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                        </li>
+                    </ul>
+                    <div class="clearfix"></div>
+                </div>
+				<div class="x_content">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Fecha</th>
+                                <th>Ver</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+							{% for c in comparativa %}
+							<tr>
+								<th scope="row">{{ c.id }}</th>
+								<td>{{ c.fecha|date('d/m/Y H:i:s') }}</td>
+								<td><a href ="{{ path('benchmark_show_comparative', { slug: c.id }) }}"class="btn btn-primary"><i class="fa fa-refresh"></i> Comparativa</a></td>
+							</tr>
+							{% endfor %}
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+	</div>
+</div>
+
+ <script>
+        $(document).ready(function () {
+            $('#SERVIDOR_APAGADO').click(function() {
+			  setRequest("ENCENDER",null);
+			});
+            
+            $('#SERVIDOR_ENCENDIDO').click(function() {
+			  setRequest("APAGAR",null);
+			});
+        });
+        function setRequest(_op,d_id){
+            $.post('{{path('benchmark_monitor_ajax')}}', {op:_op,id:d_id}, 
+            function(response){
+                if(response.code == 100 && response.success){//dummy check
+                   $('#res').html(response.servidor);
+                   if (":STOP_OK" == response.servidor){
+                   		$('#status').html('<i class="fa fa-square red"></i> APAGADO')
+                   		$('#SERVIDOR_ENCENDIDO').html('<i class="fa fa-bolt"></i> Arrancar')
+                   		$('#SERVIDOR_ENCENDIDO').attr('id',"SERVIDOR_APAGADO")
+                   }else if (":START_OK" == response.servidor){
+                   		$('#status').html('<i class="fa fa-square green"></i> ENCENDIDO')
+                   		$('#SERVIDOR_APAGADO').html('<i class="fa fa-bolt"></i> Apagar')
+                   		$('#SERVIDOR_APAGADO').attr('id',"SERVIDOR_ENCENDIDO")
+                   }
+                }
+
+            }, "json");    
+        }
+    </script>
+{% endblock %}

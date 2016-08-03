@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="BenchmarkBundle\Entity\Test" table="Test">
+    <indexes>
+      <index name="Fichero" columns="Fichero,Programa,Algoritmo,Estado,ScriptBenchmark"/>
+      <index name="ScriptBenchmark" columns="ScriptBenchmark"/>
+      <index name="Programa" columns="Programa"/>
+      <index name="Estado" columns="Estado"/>
+      <index name="Algoritmo" columns="Algoritmo"/>
+      <index name="Configuracion" columns="Configuracion"/>
+      <index name="IDX_784DD1323B547DA8" columns="Fichero"/>
+    </indexes>
+    <id name="id" type="integer" column="id">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="comand" type="string" column="comand" length="1024" nullable="false">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="containerId" type="string" column="container_id" length="64" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="containerName" type="string" column="container_name" length="128" nullable="false">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="inicio" type="datetime" column="inicio" nullable="true"/>
+    <field name="fin" type="datetime" column="fin" nullable="true"/>
+    <many-to-one field="algoritmo" target-entity="Algoritmos" fetch="LAZY">
+      <join-columns>
+        <join-column name="Algoritmo" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="configuracion" target-entity="Configuracion" fetch="LAZY">
+      <join-columns>
+        <join-column name="Configuracion" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="fichero" target-entity="Ficheros" fetch="LAZY">
+      <join-columns>
+        <join-column name="Fichero" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="estado" target-entity="Estado" fetch="LAZY">
+      <join-columns>
+        <join-column name="Estado" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="programa" target-entity="Programas" fetch="LAZY">
+      <join-columns>
+        <join-column name="Programa" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="scriptbenchmark" target-entity="Scriptbenchmark" fetch="LAZY">
+      <join-columns>
+        <join-column name="ScriptBenchmark" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>

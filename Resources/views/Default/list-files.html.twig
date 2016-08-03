@@ -1,0 +1,53 @@
+{% extends 'BenchmarkBundle:Layout:base.html.twig' %}
+
+    {% block header %} 
+        {% include 'BenchmarkBundle:Header:header.html.twig' %}
+     {% endblock %}
+    {% block bodyContent %} 
+
+                    <div class="">
+                        <div class="clearfix"></div>
+                        <div class="row">
+                            <div class="col-md-12 col-sm-12 col-xs-12">
+                                <div class="x_panel">
+                                    <div class="x_title">
+                                        <h2>Ficheros Disponibles <small>Samples</small></h2>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                        
+                                    <div class="x_content">
+                                        <table id="example" class="table table-striped responsive-utilities jambo_table">
+                                            <thead>
+                                                <tr class="headings">
+                                                    <th>Nombre </th>
+                                                    <th>Extension </th>
+                                                    <th>Tamaño MB</th>
+                                                    <th>Fecha Creaci&oacute;n</th>
+                                                    <th class=" no-link last"><span class="nobr">Ver</span>
+                                                    </th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                             {% for key, d in datos %}
+                                                <tr class="even pointer">
+                                                    <td class=" ">{{d.nombre}}</td>
+                                                    <td class=" ">{{d.ext}}</td>
+                                                    <td class=" ">{{d.size }}</td>
+                                                    <td class=" ">{{d.fecha| date('d/m/Y')}}</td>
+                                                    <td class=" last"><a href="#" onclick="getFile('{{d.ruta}}{{d.nombre}}')">Ver</a>
+                                                    </td>
+                                                </tr>
+                                            {% endfor %}
+                                               
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <br />
+                            <br />
+                            <br />
+                        </div>
+                        <code id="file"></code>
+                    </div>
+    {% endblock %}

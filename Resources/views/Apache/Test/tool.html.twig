@@ -1,0 +1,105 @@
+{% extends 'BenchmarkBundle:Layout:base.html.twig' %}
+
+{% block header %}
+{% include 'BenchmarkBundle:Header:header.html.twig' %}
+{% endblock %}
+{% block bodyContent %}
+<div class="page-title">
+	<div class="title_left">
+		<h3>Benchmark</h3>
+	</div>
+</div>
+<div class="clearfix"></div>
+<div class="row">
+	<div class="col-md-12 col-sm-12 col-xs-12">
+		<div class="x_panel">
+			<div class="x_title">
+				<h2>Form Test<small>Lanzar Prueba</small></h2>
+				<div class="clearfix"></div>
+			</div>
+			<div class="col-md-4">
+                <div class="x_panel">
+                    <div class="x_title">
+                        <h2>LLamadas Asincronas <small>AJAX</small></h2>
+
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="x_content bs-example-popovers">
+
+                        <div class="alert alert-info alert-dismissible fade in" role="alert">
+                            <button type="button" class="btn btn-primary" id="list"><i class="fa fa-bolt"></i> Ejecutar</button>
+                            <strong>Contenedores en ejecuci&oacute;n:</strong> docker ps -a.
+                        </div>
+                        <div class="alert alert-info alert-dismissible fade in" role="alert">
+							<button type="button" class="btn btn-primary" id="clean"><i class="fa fa-bolt"></i> Ejecutar</button>
+                            <strong>Limpiar Sistema:</strong> Paramos los dockers.
+                        </div>
+                        <div class="alert alert-info alert-dismissible fade in" role="alert">
+                            <select class="form-control btn btn-primary" id="list_id">
+                                <option value="null">Selecciona uno</option>
+                                {% for d in docker_id %}
+                                <option value="{{d.containerId}}">{{d.containerName}}</option>
+                                {% endfor %}
+                            </select>
+                            
+                            <strong>Docker By ID:</strong><br> docker ps --filter "id=3534543543"
+                        </div>
+                        <div class="alert alert-info alert-dismissible fade in" role="alert">
+                            <select class="form-control btn btn-primary" id="delete">
+                                <option value="null">Selecciona uno</option>
+                                {% for d in docker_id %}
+                                <option value="">{{d.containerName}}</option>
+                                {% endfor %}
+                            </select>
+                            <strong>Borrar imagenes:</strong><br> docker rmi 'nombre'
+                        </div>
+                    </div>
+                </div>
+            </div>
+			<div class="col-md-8">
+                <div class="x_panel">
+                    <div class="x_title">
+                        <h2>Respuestas <small>AJAX</small></h2>
+
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="x_content bs-example-popovers">
+								<ul class="list-unstyled timeline" id="res">
+
+                                </ul>
+
+                    </div>
+                </div>
+            </div>
+		</div>
+	</div>
+</div>
+    <script>
+        $(document).ready(function () {
+            $('#list').click(function() {
+			  setRequest("list",null);
+			});
+            
+            $('#clean').click(function() {
+			  setRequest("clean",null);
+			});
+            $( "#list_id" ).change(function(e) {
+                if(this.value != 'null')
+                    setRequest("list_id",this.value);
+            });
+            $('#terminal').click(function() {
+              setRequest("terminal",null);
+            });
+        });
+        function setRequest(url,d_id){
+            $.post('{{path('benchmark_ajax_query_docker')}}', {data:url,id:d_id}, 
+            function(response){
+                if(response.code == 100 && response.success){//dummy check
+                   $('#res').append(response.file);
+                }
+
+            }, "json");    
+        }
+    </script>
+
+{% endblock %}

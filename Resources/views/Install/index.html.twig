@@ -1,0 +1,147 @@
+{% extends 'BenchmarkBundle:Layout:base.html.twig' %}
+{% block header %} 
+{% include 'BenchmarkBundle:Header:header.html.twig' %}
+{% endblock %}
+{% block bodyContent %} 
+
+<div class="col-md-12">
+    <div class="x_panel">
+        <div class="x_title">
+            <h2>Cómo Instalar <small>Benchmark Dashboard</small></h2>
+            <div class="clearfix"></div>
+        </div>
+		<div class="x_content">
+		    <div class="" role="tabpanel" data-example-id="togglable-tabs">
+		        <ul id="myTab" class="nav nav-tabs bar_tabs" role="tablist">
+		            <li role="presentation" ><a href="#tab_content1" id="home-tab" role="tab" data-toggle="tab" aria-expanded="true">V: 0.1</a>
+		            </li>
+		            <li role="presentation" class="active"><a href="#tab_content2" role="tab" id="profile-tab" data-toggle="tab" aria-expanded="false">V: 0.2</a>
+		            </li>
+		            <li role="presentation" class=""><a href="#tab_content3" role="tab" id="profile-tab2" data-toggle="tab" aria-expanded="false">Git</a>
+		            </li>
+		        </ul>
+		        <div id="myTabContent" class="tab-content">
+		            <div role="tabpanel" class="tab-pane fade " id="tab_content1" aria-labelledby="home-tab">
+                    	<div class="row">
+							<div class="animated flipInY col-lg-6 col-md-6 col-sm-6 col-xs-12">
+				                <div class="tile-stats">
+				                    <div style="overflow: auto;float: right;">
+				                    	<img src="{{ asset('bundles/benchmark/images/docker.png') }}" alt="..." style="height:200px;float:right">
+				                    </div>
+				                    <div class="count" style="font-size: 80px;">1º</div>
+
+				                    <h3>Instalar Docker</h3>
+				                    <p>Ejecutar <code>sudo ./dockerInstall.sh</code></p>
+				                </div>
+				            </div>
+							<div class="animated flipInY col-lg-6 col-md-6 col-sm-6 col-xs-12">
+				                <div class="tile-stats">
+				                    <div style="overflow: auto;float: right;">
+				                    	<img src="{{ asset('bundles/benchmark/images/lamp.png') }}" alt="..." style="height:132px;float:right">
+				                    </div>
+				                    <div class="count" style="font-size: 80px;">2º</div>
+
+				                    <h3>Instalar PHP-ZTS + Apache2 + MySQL</h3>
+				                    <p>Ejecutar <code>sudo ./lamp-zts.sh</code></p>
+				                </div>
+				            </div>
+				        </div>
+			        	<div class="row">
+							<div class="animated flipInY col-lg-6 col-md-6 col-sm-6 col-xs-12">
+				                <div class="tile-stats">
+				                    <div style="overflow: auto;float: right;padding: 6px;">
+				                    	<img src="{{ asset('bundles/benchmark/images/symfony2.png') }}" alt="..." style="height:170px;float:right">
+				                    </div>
+				                    <div class="count" style="font-size: 80px;">3º</div>
+
+				                    <h3>Instalar Symfony 3</h3>
+				                    <p>Ejecutar <code>sudo ./symfony3Install.sh</code></p>
+				                    <p>Será necesario configurar el acceso a la BBDD en el archivo <code>app/config/parameters.yml</code></p>
+				                </div>
+				            </div>
+							<div class="animated flipInY col-lg-6 col-md-6 col-sm-6 col-xs-12">
+				                <div class="tile-stats">
+				                    <div style="overflow: auto;float: right;">
+				                    	<img src="{{ asset('bundles/benchmark/images/mysql.png') }}" alt="..." style="height:132px;float:right">
+				                    </div>
+				                    <div class="count" style="font-size: 80px;">4º</div>
+
+				                    <h3>Creamos BBDD y Usuarios</h3>
+				                    <p>Importamos el archivo <code>TFG-BBDD.sql</code></p>
+				                    <p>El nombre de <code>BBDD, Usuario y Contraseña</code> se deberán configurar en <code>Symfony 3</code></p>
+				                </div>
+				            </div>
+				        </div>
+			        	<div class="row">
+							<div class="animated flipInY col-lg-6 col-md-6 col-sm-6 col-xs-12">
+				                <div class="tile-stats">
+
+				                    <div class="count" style="font-size: 80px;">5º</div>
+
+				                    <h3>Crear Bundle Symfony</h3>
+				                    <p>Ejecutar <br><code>php bin/console generate:bundle --bundle-name=BenchmarkBundle <br>--format=annotation</code></p>
+				                    <p>Esto nos generará el esqueleto del proyecto</p>
+				                </div>
+				            </div>
+							<div class="animated flipInY col-lg-6 col-md-6 col-sm-6 col-xs-12">
+				                <div class="tile-stats">
+				                    <div class="count" style="font-size: 80px;">6º</div>
+
+				                    <h3>Descagamos el proyecto de GitHub</h3>
+				                    <p>Descargamos el proyecto del repositorio <code>https://github.com/MarioSkill/Benchmark.git</code></p>
+				                    <p><code>git clone https://github.com/MarioSkill/Benchmark.git ./BenchmarkBundle</code></p>
+				                </div>
+				            </div>
+				        </div>
+			        	<div class="row">
+							<div class="animated flipInY col-lg-6 col-md-6 col-sm-6 col-xs-12">
+				                <div class="tile-stats">
+
+				                    <div class="count" style="font-size: 80px;">7º</div>
+
+				                    <h3>Descargamos las imágenes Docker</h3>
+				                    <p>Ejecutar<br><code>docker pull marioskill/apache-storm<br>docker pull marioskill/apache-flink<br>docker pull marioskill/apache-spark</code></p>
+				                </div>
+				            </div>
+							<div class="animated flipInY col-lg-6 col-md-6 col-sm-6 col-xs-12">
+				                <div class="tile-stats">
+
+				                    <div class="count" style="font-size: 80px;">8º</div>
+
+				                    <h3>Creamos Proyecto eclipse</h3>
+				                    <p>Ejecutar <code>mvn eclipse:eclipse</code> donde se encuentren los ejemplos</p>
+				                    <p>Posteriormente copiar fuera del docker el proyecto y compilar para generar los jar
+				                </div>
+				            </div>
+				        </div>
+		            </div>
+		            <div role="tabpanel" class="tab-pane fade active in" id="tab_content2" aria-labelledby="profile-tab">
+			        	<div class="row">
+							<div class="animated flipInY col-lg-12 col-md-12 col-sm-12 col-xs-12">
+				                <div class="tile-stats">
+				                    <div class="count" style="font-size: 80px;">1º</div>
+
+				                    <h3>Descagamos el proyecto de GitHub</h3>
+				                    <p>Descargamos el proyecto del repositorio <code>https://github.com/MarioSkill/TFG-install.git</code></p>
+				                    <p><code>git clone https://github.com/MarioSkill/TFG-install.git .</code></p>
+				                    <p>Ejecutamos: <code>sudo ./install.sh</code></p>
+				                </div>
+				            </div>
+				        </div>
+		            </div>
+		            <div role="tabpanel" class="tab-pane fade" id="tab_content3" aria-labelledby="profile-tab">
+		            	<code>
+			                echo "# TFG" >> README.md <br>
+							git init<br>
+							git add README.md<br>
+							git commit -m "first commit"<br>
+							git remote add origin https://github.com/MarioSkill/TFG.git<br>
+							git push -u origin master<br>
+						</code>
+		            </div>
+		        </div>
+		    </div>
+		</div>
+    </div>
+</div>
+{% endblock %}

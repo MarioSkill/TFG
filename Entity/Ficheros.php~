@@ -1,0 +1,68 @@
+<?php
+
+namespace BenchmarkBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Ficheros
+ *
+ * @ORM\Table(name="Ficheros")
+ * @ORM\Entity
+ */
+class Ficheros
+{
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="nombre", type="string", length=64, nullable=false)
+     */
+    private $nombre;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="ruta", type="string", length=125, nullable=false)
+     */
+    private $ruta;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="size", type="string", length=100, nullable=false)
+     */
+    private $size;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="ext", type="string", length=4, nullable=true)
+     */
+    private $ext;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="fecha", type="datetime", nullable=false)
+     */
+    private $fecha;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="rutaDataDocker", type="string", length=250, nullable=false)
+     */
+    private $rutadatadocker;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $id;
+
+
+}
+

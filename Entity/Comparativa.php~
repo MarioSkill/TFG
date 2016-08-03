@@ -1,0 +1,45 @@
+<?php
+
+namespace BenchmarkBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Comparativa
+ *
+ * @ORM\Table(name="Comparativa", indexes={@ORM\Index(name="test", columns={"test"})})
+ * @ORM\Entity
+ */
+class Comparativa
+{
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="fecha", type="datetime", nullable=false)
+     */
+    private $fecha;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="NONE")
+     */
+    private $id;
+
+    /**
+     * @var \BenchmarkBundle\Entity\Test
+     *
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="NONE")
+     * @ORM\OneToOne(targetEntity="BenchmarkBundle\Entity\Test")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="test", referencedColumnName="id")
+     * })
+     */
+    private $test;
+
+
+}
+

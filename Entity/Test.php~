@@ -1,0 +1,121 @@
+<?php
+
+namespace BenchmarkBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Test
+ *
+ * @ORM\Table(name="Test", indexes={@ORM\Index(name="Fichero", columns={"Fichero", "Programa", "Algoritmo", "Estado", "ScriptBenchmark"}), @ORM\Index(name="ScriptBenchmark", columns={"ScriptBenchmark"}), @ORM\Index(name="Programa", columns={"Programa"}), @ORM\Index(name="Estado", columns={"Estado"}), @ORM\Index(name="Algoritmo", columns={"Algoritmo"}), @ORM\Index(name="Configuracion", columns={"Configuracion"}), @ORM\Index(name="IDX_784DD1323B547DA8", columns={"Fichero"})})
+ * @ORM\Entity
+ */
+class Test
+{
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="comand", type="string", length=1024, nullable=false)
+     */
+    private $comand;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="container_id", type="string", length=64, nullable=true)
+     */
+    private $containerId;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="container_name", type="string", length=128, nullable=false)
+     */
+    private $containerName;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="inicio", type="datetime", nullable=true)
+     */
+    private $inicio;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="fin", type="datetime", nullable=true)
+     */
+    private $fin;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $id;
+
+    /**
+     * @var \BenchmarkBundle\Entity\Algoritmos
+     *
+     * @ORM\ManyToOne(targetEntity="BenchmarkBundle\Entity\Algoritmos")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="Algoritmo", referencedColumnName="id")
+     * })
+     */
+    private $algoritmo;
+
+    /**
+     * @var \BenchmarkBundle\Entity\Configuracion
+     *
+     * @ORM\ManyToOne(targetEntity="BenchmarkBundle\Entity\Configuracion")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="Configuracion", referencedColumnName="id")
+     * })
+     */
+    private $configuracion;
+
+    /**
+     * @var \BenchmarkBundle\Entity\Ficheros
+     *
+     * @ORM\ManyToOne(targetEntity="BenchmarkBundle\Entity\Ficheros")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="Fichero", referencedColumnName="id")
+     * })
+     */
+    private $fichero;
+
+    /**
+     * @var \BenchmarkBundle\Entity\Estado
+     *
+     * @ORM\ManyToOne(targetEntity="BenchmarkBundle\Entity\Estado")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="Estado", referencedColumnName="id")
+     * })
+     */
+    private $estado;
+
+    /**
+     * @var \BenchmarkBundle\Entity\Programas
+     *
+     * @ORM\ManyToOne(targetEntity="BenchmarkBundle\Entity\Programas")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="Programa", referencedColumnName="id")
+     * })
+     */
+    private $programa;
+
+    /**
+     * @var \BenchmarkBundle\Entity\Scriptbenchmark
+     *
+     * @ORM\ManyToOne(targetEntity="BenchmarkBundle\Entity\Scriptbenchmark")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="ScriptBenchmark", referencedColumnName="id")
+     * })
+     */
+    private $scriptbenchmark;
+
+
+}
+

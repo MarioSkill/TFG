@@ -1,0 +1,424 @@
+{% extends 'BenchmarkBundle:Layout:base.html.twig' %}
+
+{% block header %}
+{% include 'BenchmarkBundle:Header:header.html.twig' %}
+{% endblock %}
+{% block bodyContent %}
+<div class="page-title">
+	<div class="title_left">
+		<h3>Resultado del Test</h3>
+	</div>
+</div>
+<div class="clearfix"></div>
+<div class="row">
+
+                        <div class="col-md-12">
+                            <div class="x_panel">
+                                <div class="x_title">
+                                    <h2>Resumen del test</h2>
+                                    <ul class="nav navbar-right panel_toolbox">
+                                        <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                                        </li>
+ 
+                                        <li><a class="close-link"><i class="fa fa-close"></i></a>
+                                        </li>
+                                    </ul>
+                                    <div class="clearfix"></div>
+                                </div>
+                                <div class="x_content">
+
+                                    <p>Informaci&oacute;n de la prueba ejecutada</p>
+
+                                    <!-- start project list -->
+                
+                                        {% for resultado in comparativa %}
+                    <table class="table table-striped projects">
+                                        <thead>
+                                            <tr>
+                                                <th style="width: 1%">VER</th>
+                                                <th>Framework</th>
+                                                <th>Fichero</th>
+                                                <th>Algoritmo</th>
+                                                <th>Tiempo</th>
+                                                <th>CPU</th>
+                                                <th>RAM</th>
+                                                <th style="width: 9%;">Estado</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td><a class="btn btn-primary btn-xs" href="{{ path('benchmark_show_result', {'slug': resultado.test.id}) }}">
+                                                {{resultado.test.id}}</a></td>
+                                                <td>
+                                                    <a>{{resultado.test.programa.nombre}}</a>
+
+                                                    <br>
+                                                    <small>Created {{resultado.test.inicio|date("m/d/Y")}}</small>
+                                                </td>
+                                                <td>
+                                                    <a>{{resultado.test.fichero.nombre}}</a>
+                                                    <br>
+                                                    <small>Tamaño {{resultado.test.fichero.size}} MB</small>                                                
+                                                </td>
+                                                <td>
+                                                    <a>{{resultado.test.algoritmo.nombre}}</a>
+                                                    <br>
+                                                    <small>{{resultado.test.algoritmo.descripcion}}</small>                                                
+                                                </td>
+                                                {% set cpu = resultado.cpu|split(',') %}
+                                                {% set ram = resultado.ram|split(',') %}
+                                                <td class="project_progress">
+                                                    <div class="progress progress_sm">
+                                                        <div class="progress-bar bg-green" role="progressbar" data-transitiongoal="{{resultado.tiempo}}" style="width: {{resultado.tiempo}}%;" aria-valuenow="{{resultado.tiempo}}"></div>
+                                                    </div>
+                                                    <small>{{resultado.tiempo}} Segundos</small>
+                                                </td>
+                                                <td class="project_progress">
+                                                    <div class="progress progress_sm">
+                                                        <div class="progress-bar bg-green" role="progressbar" data-transitiongoal="{{max(cpu)-min(cpu)}}" style="width: {{max(cpu)-min(cpu)}}%;" aria-valuenow="{{max(cpu)-min(cpu)}}"></div>
+                                                    </div>
+                                                    <small>{{max(cpu)-min(cpu)}} Uso CPU Máximo</small>
+                                                </td>
+                                                <td class="project_progress">
+                                                    <div class="progress progress_sm">
+                                                        <div class="progress-bar bg-green" role="progressbar" data-transitiongoal="{{max(ram)-min(ram)}}" style="width: {{max(ram)-min(ram)}}%;" aria-valuenow="{{max(ram)-min(ram)}}"></div>
+                                                    </div>
+                                                    <small>{{max(ram)-min(ram)}}% RAM MAX Usado</small>
+                                                </td>
+                                                <td>
+                                                    <span type="button" class="btn btn-success btn-xs">{{resultado.test.estado.nombre}}</span>
+                                                </td>
+                                            </tr>
+                                            
+                                        </tbody>
+
+                                        <thead>
+                                        <tr>
+                                           <th style="width: 1%"></th>
+                                            <th>CPU MAX</th>
+                                            <th>CPU MIN</th>
+                                            <th>INCREMENTO</th>
+                                            <th>RAM MAX</th>
+                                            <th>RAM MIN</th>
+                                            <th>INCREMENTO</th>
+                                            <th>LOGS</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody style="margin-bottom:10px">
+
+                                        <tr>
+                                            <td></td>
+                                            <td>{{max(cpu)}}%</td>
+                                            <td>{{min(cpu)}}%</td>
+                                            <td>{{max(cpu)-min(cpu)}}%</td>
+                                            <td>{{max(ram)}}%</td>
+                                            <td>{{min(ram)}}%</td>
+                                            <td>{{max(ram)-min(ram)}}%</td>
+                                            <td><button type="button" class="btn btn-primary btn-xs" data-toggle="modal" data-target=".log_{{resultado.test.id}}">Ver Logs</button>
+                                <div class="modal fade log_{{resultado.test.id}}" tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
+                                    <div class="modal-dialog modal-lg">
+                                        <div class="modal-content">
+
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span>
+                                                </button>
+                                                <h4 class="modal-title" id="myModalLabel">Logs {{resultado.test.containerName}}</h4>
+                                            </div>
+                                            <div class="modal-body">
+                                                <h4>Salida de los programas</h4>
+                                                <pre>{{resultado.log}}</pre>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                    </table>
+                                    {% endfor %}
+                                    
+                                    <!-- end project list -->
+
+                                </div>
+                            </div>
+                        </div>
+    <div class="col-md-12">
+        <div class="x_panel">
+            <div class="x_title">
+                <h2>Información Hardware <small>de la prueba</small></h2>
+                <ul class="nav navbar-right panel_toolbox">
+                    <li><a class="close-link"><i class="fa fa-close"></i></a> </li>
+                </ul>
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content bs-example-popovers">
+                <div id="collapseOne1" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                    <div class="panel-body">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Prueba</th>
+                                    <th>Modelo CPU</th>
+                                    <th>Nucleos</th>
+                                    <th>Tamaño RAM</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            {% for resultado in comparativa %}
+                                <tr>
+                                    <th scope="row">{{resultado.test.programa.nombre}}</th>
+                                    <td>{{resultado.ModeloCPU}}</td>
+                                    <td>{{resultado.NucleosCPU}}</td>
+                                    <td>{{resultado.totalRAM/1000}} GB</td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+                    </div>
+
+<div class="row">
+        <!-- bar chart -->
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="x_panel">
+                <div class="x_title">
+                    <h2>Tiempo en completar el algoritmo<small>Segundos</small></h2>
+                    <ul class="nav navbar-right panel_toolbox">
+                        <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                        </li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                            <ul class="dropdown-menu" role="menu">
+                                <li><a href="#">Settings 1</a>
+                                </li>
+                                <li><a href="#">Settings 2</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li><a class="close-link"><i class="fa fa-close"></i></a>
+                        </li>
+                    </ul>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="x_content">
+                    <div id="graph_bar" style="width:100%; height:280px;"></div>
+                </div>
+            </div>
+        </div>
+        <!-- /bar charts -->
+</div>
+<div class="row">
+    <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="x_panel">
+            <div class="x_title">
+                <h2>Gráfica:CPU</h2>
+                <ul class="nav navbar-right panel_toolbox">
+                    <li><a href="#"><i class="fa fa-chevron-up"></i></a>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="#">Settings 1</a>
+                            </li>
+                            <li><a href="#">Settings 2</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li><a href="#"><i class="fa fa-close"></i></a>
+                    </li>
+                </ul>
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+
+                <div id="echart_line_CPU" style="height:350px;"></div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="x_panel">
+            <div class="x_title">
+                <h2>Gráfica: RAM</h2>
+                <ul class="nav navbar-right panel_toolbox">
+                    <li><a href="#"><i class="fa fa-chevron-up"></i></a>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="#">Settings 1</a>
+                            </li>
+                            <li><a href="#">Settings 2</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li><a href="#"><i class="fa fa-close"></i></a>
+                    </li>
+                </ul>
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+
+                <div id="echart_line_RAM" style="height:350px;"></div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+	$(function () {
+
+        var myChartCPU = echarts.init(document.getElementById('echart_line_CPU'), theme);
+        var myChartRAM = echarts.init(document.getElementById('echart_line_RAM'), theme);
+        myChartCPU.setOption({
+            title: {
+                text: 'Recursos Consumidos',
+                subtext: 'CPU vs TIEMPO'
+            },
+            tooltip: {
+                trigger: 'axis'
+            },
+            legend: {
+                data: [{% for resultado in comparativa %}'{{resultado.test.programa.nombre}}',{% endfor %}]
+            },
+            toolbox: {
+                show: true,
+                feature: {
+                    magicType: {
+                        show: true,
+                        type: ['line', 'bar', 'stack', 'tiled']
+                    },
+                    restore: {
+                        show: true
+                    },
+                    saveAsImage: {
+                        show: true
+                    }
+                }
+            },
+            calculable: true,
+            xAxis: [
+                {
+                    type: 'category',
+                    boundaryGap: false,
+                    data: [{% for i in 0..maxTiempo %}'{{i}}',{% endfor %}]
+                    //'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+                                                {#% set cpu = resultado.cpu|split(',') %}
+                                                {% set ram = resultado.ram|split(',') %#}
+            }
+        ],
+            yAxis: [
+                {
+                    type: 'value'
+            }
+        ],
+            series: [
+            {% for resultado in comparativa %}
+                {
+                    name: '{{resultado.test.programa.nombre}}',
+                    type: 'line',
+                    smooth: true,
+                    itemStyle: {
+                        normal: {
+                            areaStyle: {
+                                type: 'default'
+                            }
+                        }
+                    },
+                    {% set cpu = resultado.cpu|split(',') %}
+                    data: [{% for c in cpu %}'{{c}}',{% endfor %}]
+                    //
+            },
+            {% endfor %}
+        ]
+        });
+        myChartRAM.setOption({
+            title: {
+                text: 'Recursos Consumidos',
+                subtext: 'RAM vs TIEMPO'
+            },
+            tooltip: {
+                trigger: 'axis'
+            },
+            legend: {
+                data: [{% for resultado in comparativa %}'{{resultado.test.programa.nombre}}',{% endfor %}]
+            },
+            toolbox: {
+                show: true,
+                feature: {
+                    magicType: {
+                        show: true,
+                        type: ['line', 'bar', 'stack', 'tiled']
+                    },
+                    restore: {
+                        show: true
+                    },
+                    saveAsImage: {
+                        show: true
+                    }
+                }
+            },
+            calculable: true,
+            xAxis: [
+                {
+                    type: 'category',
+                    boundaryGap: false,
+                    data: [{% for i in 0..maxTiempo %}'{{i}}',{% endfor %}]
+                    //'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+                    
+            }
+        ],
+            yAxis: [
+                {
+                    type: 'value'
+            }
+        ],
+        series: [
+            {% for resultado in comparativa %}
+                {
+                    name: '{{resultado.test.programa.nombre}}',
+                    type: 'line',
+                    smooth: true,
+                    itemStyle: {
+                        normal: {
+                            areaStyle: {
+                                type: 'default'
+                            }
+                        }
+                    },
+                    {% set ram = resultado.ram|split(',') %}
+                    data: [{% for c in ram %}'{{c}}',{% endfor %}]
+                    //
+            },
+            {% endfor %}
+        ]
+        });
+    /* data stolen from http://howmanyleft.co.uk/vehicle/jaguar_'e'_type */
+    Morris.Bar({
+        element: 'graph_bar',
+        data: [
+            {% for resultado in comparativa %}
+            {tool: '{{resultado.test.programa.nombre}}', geekbench: {{resultado.tiempo}}},
+            {% endfor %}
+        ],
+        xkey: 'tool',
+        ykeys: ['geekbench'],
+        labels: ['Tiempo (s)'],
+        barRatio: 0.4,
+        barColors: ['#26B99A', '#34495E', '#ACADAC', '#3498DB'],
+        xLabelAngle: 35,
+        hideHover: 'auto'
+    });
+});
+</script>
+{% endblock %}

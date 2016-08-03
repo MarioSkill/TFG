@@ -1,0 +1,82 @@
+login:
+    path:     /login
+    defaults: { _controller: BenchmarkBundle:Security:login }
+logout:
+    path: /logout
+    
+benchmark_homepage:
+    path:     /
+    defaults: { _controller: BenchmarkBundle:Default:index }
+benchmark_install:
+    path:     /instalacion
+    defaults: { _controller: BenchmarkBundle:Install:index }
+
+benchmark_webService:
+    path:     /ws
+    defaults: { _controller: BenchmarkBundle:WS:server }
+
+benchmark_test:
+    path:     /test/
+    defaults: { _controller: BenchmarkBundle:LanzarTest:index }
+
+benchmark_lanzarTest:
+    path:     /test/lanzar
+    defaults: { _controller: BenchmarkBundle:LanzarTest:run }
+
+benchmark_show_result:
+    path:     /resultados/ver/{slug}
+    defaults: { _controller: BenchmarkBundle:Resultados:verResultado }
+
+benchmark_show_comparative:
+    path:     /resultados/comparativa/{slug}
+    defaults: { _controller: BenchmarkBundle:Resultados:verComparativa }
+
+benchmark_files:
+    path:     /data/samples
+    defaults: { _controller: BenchmarkBundle:BigData:data }
+
+benchmark_ajax_query:
+    path:     /data/show
+    defaults: { _controller: BenchmarkBundle:BigData:show }
+
+benchmark_run_tool:
+    path:     /docker/tool
+    defaults: { _controller: BenchmarkBundle:Docker:tool }
+
+benchmark_ajax_query_docker:
+    path:     /docker/manage
+    defaults: { _controller: BenchmarkBundle:Docker:manage }
+
+benchmark_home_spark_dockerfile:
+    path:     /apache-spark/dockerfile
+    defaults: { _controller: BenchmarkBundle:Apache:spark }
+benchmark_home_spark_docs:
+    path:     /apache-spark/docs
+    defaults: { _controller: BenchmarkBundle:Apache:spark }
+
+benchmark_home_flink_dockerfile:
+    path:     /apache-flink/dockerfile
+    defaults: { _controller: BenchmarkBundle:Apache:flink }
+benchmark_home_flink_docs:
+    path:     /apache-flink/docs
+    defaults: { _controller: BenchmarkBundle:Apache:flink }
+
+benchmark_home_storm_dockerfile:
+    path:     /apache-storm/dockerfile
+    defaults: { _controller: BenchmarkBundle:Apache:storm }
+benchmark_home_storm_docs:
+    path:     /apache-storm/docs
+    defaults: { _controller: BenchmarkBundle:Apache:storm }
+
+benchmark_monitor_inicio:
+    path:     /monitor-de-rendimiento
+    defaults: { _controller: BenchmarkBundle:Monitor:index }
+benchmark_monitor_ajax:
+    path:     /monitor-de-rendimiento/ajax
+    defaults: { _controller: BenchmarkBundle:Monitor:ajax }
+benchmark_monitor_encender:
+    path:     /monitor-de-rendimiento/encender-servidor
+    defaults: { _controller: BenchmarkBundle:Monitor:pararServerSocket }
+benchmark_monitor_apagar:
+    path:     /monitor-de-rendimiento/apagar-servidor
+    defaults: { _controller: BenchmarkBundle:Monitor:arrancarServerSocket }

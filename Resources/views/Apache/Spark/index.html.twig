@@ -1,0 +1,16 @@
+{% extends 'BenchmarkBundle:Layout:base.html.twig' %}
+
+	{% block header %} 
+		{% include 'BenchmarkBundle:Header:header.html.twig' %}
+	 {% endblock %}
+	{% block bodyContent %} 
+
+	    <br />
+	    <div class="clearfix">
+	    	<pre class="prettyprint">
+	    	    	{{get.dockerfile}}
+	    	</pre>
+
+	    </div>
+
+	{% endblock %}

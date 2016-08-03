@@ -1,0 +1,100 @@
+<div class="col-md-3 left_col">
+    <div class="left_col scroll-view">
+
+        <div class="navbar nav_title" style="border: 0;">
+            <a href="{{ path('benchmark_homepage') }}" class="site_title"><i class="fa fa-cog"></i> <span>Benchmark</span></a>
+        </div>
+        <div class="clearfix"></div>
+
+
+        <!-- menu prile quick info -->
+        <div class="profile" >
+            <div class="profile_pic">
+                <img src="{{ asset('bundles/benchmark/images/apache.png') }}" alt="..." class="img-circle profile_img">
+            </div>
+            <div class="profile_info">
+                <span>Dashboard</span>
+                <h2>Apache</h2>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+        <!-- /menu prile quick info -->
+
+        <!-- sidebar menu -->
+        <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+
+            <div class="menu_section">
+
+                <ul class="nav side-menu">
+
+                <h3>Servicios</h3>
+                    <li>
+                        <a href="{{ path('benchmark_homepage') }}">
+                            <i class="fa fa-home"></i>Inicio
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ path('benchmark_install') }}">
+                            <i class="fa fa-coffee"></i>Instalación
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ path('benchmark_monitor_inicio') }}">
+                            <i class="fa fa-television"></i>Monitor Rendimiento
+                        </a>
+                    </li>
+                    <li style="margin-top:5px;"><a><i class="fa fa-server"></i> Apache <span class="fa fa-chevron-down"></span></a>
+                        <ul class="nav child_menu" style="display: block;">
+
+                                <li>
+                                    <a>Spark <span class="fa fa-chevron-down"></span></a>
+                                    <ul class="nav child_menu">
+                                        <li><a href="{{ path('benchmark_home_spark_dockerfile') }}">Dockerfile</a></li>
+                                        <li><a href="{{ path('benchmark_home_spark_docs') }}">Docs</a></li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a>Flink <span class="fa fa-chevron-down"></span></a>
+                                    <ul class="nav child_menu">
+                                        <li><a href="{{ path('benchmark_home_flink_dockerfile') }}">Dockerfile</a></li>
+                                        <li><a href="{{ path('benchmark_home_flink_docs') }}">Docs</a></li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a>Storm <span class="fa fa-chevron-down"></span></a>
+                                    <ul class="nav child_menu">
+                                        <li><a href="{{ path('benchmark_home_storm_dockerfile') }}">Dockerfile</a></li>
+                                        <li><a href="{{ path('benchmark_home_storm_docs') }}">Docs</a></li>
+                                    </ul>
+                                </li>
+                        </ul>
+                    </li>
+                    <li class=""><a><i class="fa fa-database"></i> Datos <span class="fa fa-chevron-down"></span></a>
+                        <ul class="nav child_menu" style="display: none;">
+                            <li><a href="{{ path('benchmark_files') }}">Datos Disponibles</a>
+                        </ul>
+                    </li>
+                                <li>
+                                    <a href="{{ path('benchmark_run_tool') }}">
+                                        <i class="fa fa-gears"></i>Administrar Docker
+                                    </a>
+                                </li>
+                    <li>
+                        <a href="{{ path('benchmark_test') }}">
+                            <i class="fa fa-laptop"></i>Benchmark <span class="label label-success pull-right">init:test</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+
+        </div>
+        <!-- /sidebar menu -->
+
+        <!-- /menu footer buttons -->
+
+        <!-- /menu footer buttons -->
+    </div>
+</div>
+
+<!-- /page content -->

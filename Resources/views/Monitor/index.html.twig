@@ -1,0 +1,171 @@
+{% extends 'BenchmarkBundle:Layout:base.html.twig' %}
+{% block header %} 
+{% include 'BenchmarkBundle:Header:header.html.twig' %}
+{% endblock %}
+{% block bodyContent %} 
+<br />
+{{dump(t)}}
+<div class="">
+	<div class="row">
+		<div class="col-md-12 col-sm-12 col-xs-12">
+		    <div class="x_panel tile overflow_hidden">
+		        <div class="x_title">
+		            <h2>Servidor Monitorización</h2>
+		            <div class="clearfix"></div>
+		        </div>
+		        <div class="x_content">
+		            <table class="" style="width:100%">
+		                <tbody><tr>
+		                    <th>
+		                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+		                            <p class="">IP</p>
+		                        </div>
+		                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+		                            <p class="">Puerto</p>
+		                        </div>
+		                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+		                            <p class="">Estado</p>
+		                        </div>
+				                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+		                            <p class="">Tarea</p>
+		                        </div>
+		                    </th>
+		                </tr>
+		                <tr>
+		                    <td>
+		                        <table class="tile_info">
+		                            <tbody>
+		                            <tr>
+		                                <td style="width:0;">
+		                                    {{ip}} </p>
+		                                </td>
+		                                <td class="col-lg-3 col-md-3 col-sm-3 col-xs-3">{{puerto}}</td>
+		                                <td class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+		                                <p id ="status">
+		                                	{% if estado == 'ENCENDIDO' %}
+		                                	<i class="fa fa-square green"></i>
+		                                	{% elseif estado == 'APAGADO' %}
+		                                	<i class="fa fa-square red"></i>
+		                                	{% else %}
+		                                	<i class="fa fa-square orange" style="color:#f0ad4e;"></i>
+		                                	{% endif %}
+		                                	{{estado}}</p>
+		                                </td>
+		                                <td class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+		                                	<button type="button" class="btn btn-primary" id="SERVIDOR_{{estado}}"><i class="fa fa-bolt"></i> 
+		                                	{% if estado == 'ENCENDIDO' %}Apagar{% else %}Arrancar{% endif %}
+		                                	</button>
+		                                </td>
+		                            </tr>
+		                        </tbody></table>
+		                    </td>
+		                </tr>
+		            </tbody></table>
+		        </div>
+		        <div class="x_content">
+		            <table class="" style="width:100%">
+		                <tbody><tr>
+		                    <th>
+		                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+		                            <p class="">Prueba</p>
+		                        </div>
+		                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+		                            <p class="">Descripción</p>
+		                        </div>
+				                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+		                            <p class="">Tarea</p>
+		                        </div>
+		                    </th>
+		                </tr>
+		                <tr>
+		                    <td>
+		                        <table class="tile_info">
+		                            <tbody>
+		                            <tr>
+		                                <td style="width:0;">Iniciar Medicion CPU/RAM</td>
+		                                <td class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+		                                	<button type="button" class="btn btn-primary" id="SERVIDOR_MEDIR">
+		                                		<i class="fa fa-bolt"></i> Medir Servidor
+		                                	</button>
+		                                </td>
+		                            </tr>
+		                        </tbody></table>
+		                    </td>
+		                </tr>
+		                <tr>
+		                    <td>
+		                        <table class="tile_info">
+		                            <tbody>
+		                            <tr>
+		                                <td style="width:0;">Obtener Datos</td>
+		                                <td class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+		                                	<button type="button" class="btn btn-primary" id="SERVIDOR_GETDATA">
+		                                		<i class="fa fa-bolt"></i> Obtener Datos
+		                                	</button>
+		                                </td>
+		                            </tr>
+		                        </tbody></table>
+		                    </td>
+		                </tr>
+		            </tbody></table>
+		        </div>
+		    </div>
+		</div>
+	</div>
+	<div class="row">
+	    <div class="col-md-12 col-sm-12 col-xs-12">
+	        <div class="x_panel">
+	            <div class="x_title">
+	                <h2>Prueba de funcionamiento</h2>
+
+	                <div class="clearfix"></div>
+
+	            </div>
+				<div class="x_content bs-example-popovers">
+				    <div class="alert alert-success alert-dismissible fade in" role="alert">
+				        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
+				        </button>
+				        <strong>Respuesta!</strong><p id="res"></p>
+				    </div>
+				</div>
+	        </div>
+	    </div>
+	</div>
+</div>
+ <script>
+        $(document).ready(function () {
+            $('#SERVIDOR_APAGADO').click(function() {
+			  setRequest("ENCENDER",null);
+			});
+            
+            $('#SERVIDOR_ENCENDIDO').click(function() {
+			  setRequest("APAGAR",null);
+			});
+            $('#SERVIDOR_MEDIR').click(function() {
+			  setRequest("MEDIR",null);
+			});
+            $('#SERVIDOR_GETDATA').click(function() {
+			  setRequest("GETDATA",null);
+			});
+			
+        });
+        function setRequest(_op,d_id){
+            $.post('{{path('benchmark_monitor_ajax')}}', {op:_op,id:d_id}, 
+            function(response){
+                if(response.code == 100 && response.success){//dummy check
+                   $('#res').html(response.servidor);
+                   if ("STOP_OK" == response.servidor){
+                   		$('#status').html('<i class="fa fa-square red"></i> APAGADO')
+                   		$('#SERVIDOR_ENCENDIDO').html('<i class="fa fa-bolt"></i> Arrancar')
+                   		$('#SERVIDOR_ENCENDIDO').attr('id',"SERVIDOR_APAGADO")
+                   }else if ("START_OK" == response.servidor){
+                   		$('#status').html('<i class="fa fa-square green"></i> ENCENDIDO')
+                   		$('#SERVIDOR_APAGADO').html('<i class="fa fa-bolt"></i> Apagar')
+                   		$('#SERVIDOR_APAGADO').attr('id',"SERVIDOR_ENCENDIDO")
+                   }
+                }
+
+            }, "json");    
+        }
+    </script>
+{% endblock %}

@@ -1,0 +1,60 @@
+<?php
+
+namespace BenchmarkBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Scripts
+ *
+ * @ORM\Table(name="Scripts", indexes={@ORM\Index(name="Algoritmo", columns={"Algoritmo"}), @ORM\Index(name="Programa", columns={"Programa"})})
+ * @ORM\Entity
+ */
+class Scripts
+{
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="Nombre", type="string", length=100, nullable=false)
+     */
+    private $nombre;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="bin", type="string", length=300, nullable=false)
+     */
+    private $bin;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $id;
+
+    /**
+     * @var \BenchmarkBundle\Entity\Programas
+     *
+     * @ORM\ManyToOne(targetEntity="BenchmarkBundle\Entity\Programas")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="Programa", referencedColumnName="id")
+     * })
+     */
+    private $programa;
+
+    /**
+     * @var \BenchmarkBundle\Entity\Algoritmos
+     *
+     * @ORM\ManyToOne(targetEntity="BenchmarkBundle\Entity\Algoritmos")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="Algoritmo", referencedColumnName="id")
+     * })
+     */
+    private $algoritmo;
+
+
+}
+

@@ -1,0 +1,54 @@
+<?php
+
+namespace BenchmarkBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Configuracion
+ *
+ * @ORM\Table(name="Configuracion")
+ * @ORM\Entity
+ */
+class Configuracion
+{
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="OP", type="string", length=100, nullable=false)
+     */
+    private $op;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="FicheroSalida", type="string", length=300, nullable=false)
+     */
+    private $ficherosalida;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="Logs", type="string", length=300, nullable=false)
+     */
+    private $logs;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="paramEjucucion", type="string", length=5000, nullable=true)
+     */
+    private $paramejucucion;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $id;
+
+
+}
+
